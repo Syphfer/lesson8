@@ -55,6 +55,7 @@ public class Window extends JFrame {
         buttonRestart.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                continues = 3;
                 textField.setText("Программа загадала новое число");
                 randomNumber = (int) (Math.random() * 10) + 1;
             }
@@ -64,19 +65,20 @@ public class Window extends JFrame {
     }
 
     private void tryToAnswer(int answer) {
-        if (answer == randomNumber) {
-            textField.setText("Победа, это число " + randomNumber);
-            return;
-        }
-        if (answer > randomNumber) {
-            continues--;
-            textField.setText("Загаданное число меньше, чем " + answer + " у вас осталось " + continues + " попытки");
-        }
-        if (answer < randomNumber) {
-            continues--;
-            textField.setText("Загаданное число больше, чем " + answer + " у вас осталось " + continues + " попытки");
-        } else if (continues == 0) {
+        if (continues == 0 || (continues == 1 && answer != randomNumber)) {
             textField.setText("Ты проиграл, нажми рестарт");
+            return;
+        }if (answer == randomNumber) {
+                textField.setText("Победа, это число " + randomNumber);
+                return;
+            }
+            if (answer > randomNumber) {
+                continues--;
+                textField.setText("Загаданное число меньше, чем " + answer + " у вас осталось " + continues + " попытки");
+            }
+            if (answer < randomNumber) {
+                continues--;
+                textField.setText("Загаданное число больше, чем " + answer + " у вас осталось " + continues + " попытки");
+            }
         }
-    }
 }
